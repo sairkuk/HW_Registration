@@ -6,7 +6,7 @@ describe('Add order', () => {
     it('Order', () => {
       // open website
       cy.log('**Open  website home page**')
-      cy.visit('https://automationteststore.com')
+      cy.visit('/')
 
       // Add product
       cy.get('a[data-id="72"]').click().should('have.attr', '[data-id="72"]')
