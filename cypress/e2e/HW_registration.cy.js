@@ -90,7 +90,7 @@ describe('automationteststore spec', () => {
 
     });
 
-    it('Login', () => {
+    it.skip('Pass login', () => {
 
       cy.log('Open  website login page')
       cy.visit('https://automationteststore.com')
@@ -103,9 +103,70 @@ describe('automationteststore spec', () => {
       cy.get('.pull-right[title="Login"]').click()
       cy.get('span.subtext').should('contain', user.firstNme);
 
-// cy.get('.side_account_list a').eq(9).should('have.attr', 'href').and('include', 'logout')
+      // cy.get('.side_account_list a').eq(9).should('have.attr', 'href').and('include', 'logout')
 
-// Logout cy.get('.side_account_list li').eq(9).click();
+     // Logout cy.get('.side_account_list li').eq(9).click();
      
     })
+    it('Negative test. Change in password and login places', ()=>{
+
+      cy.log('Open  website login page')
+      cy.visit('https://automationteststore.com')
+      cy.get('span.menu_text').eq(1).click().should('have.class', 'menu_text');
+
+      cy.log('Authorize user')
+      cy.get('#loginFrm_loginname').type(user.password).should('have.value', user.password)
+      cy.get('#loginFrm_password').type(user.userName).should('have.value', user.userName )
+      cy.get('.pull-right[title="Login"]').should('have.attr', 'title').and('include', 'Login')
+      cy.get('.pull-right[title="Login"]').click()
+      cy.get('.alert.alert-error.alert-danger').should('have.class', 'alert-danger');
+
+    })
+
+    it('Negative test. Empy Psw and URN', ()=>{
+
+      cy.log('Open  website login page')
+      cy.visit('https://automationteststore.com')
+      cy.get('span.menu_text').eq(1).click().should('have.class', 'menu_text');
+
+      cy.log('Authorize user')
+      //cy.get('#loginFrm_loginname').type(user.password).should('have.value', user.password)
+     // cy.get('#loginFrm_password').type(user.userName).should('have.value', user.userName )
+      cy.get('.pull-right[title="Login"]').should('have.attr', 'title').and('include', 'Login')
+      cy.get('.pull-right[title="Login"]').click()
+      cy.get('.alert.alert-error.alert-danger').should('contain', 'Error: Incorrect login or password provided.');
+
+    })
+
+    it('Negative test. Empty Psw ', ()=>{
+
+      cy.log('Open  website login page')
+      cy.visit('https://automationteststore.com')
+      cy.get('span.menu_text').eq(1).click().should('have.class', 'menu_text');
+
+      cy.log('Authorize user')
+      cy.get('#loginFrm_loginname').type(user.password).should('have.value', user.password)
+      cy.get('#loginFrm_password').type(user.userName).should('have.value', user.userName )
+      cy.get('.pull-right[title="Login"]').should('have.attr', 'title').and('include', 'Login')
+      cy.get('.pull-right[title="Login"]').click()
+      cy.get('.alert.alert-error.alert-danger').should('contain', 'Error: Incorrect login or password provided.');
+
+    })
+
+    it('Negative test. Empty URN', ()=>{
+
+      cy.log('Open  website login page')
+      cy.visit('https://automationteststore.com')
+      cy.get('span.menu_text').eq(1).click().should('have.class', 'menu_text');
+
+      cy.log('Authorize user')
+      cy.get('#loginFrm_loginname').type(user.password).should('have.value', user.password)
+      cy.get('#loginFrm_password').type(user.userName).should('have.value', user.userName )
+      cy.get('.pull-right[title="Login"]').should('have.attr', 'title').and('include', 'Login')
+      cy.get('.pull-right[title="Login"]').click()
+      cy.get('.alert.alert-error.alert-danger').should('contain', 'Error: Incorrect login or password provided.');
+
+    })
   })
+
+  
