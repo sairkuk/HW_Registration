@@ -33,3 +33,31 @@ export function headlessLogin(user){
         })
     })
 }
+
+export function findItems (search){
+cy.get('input#filter_keyword').clear().type('E').parents('form').submit();
+//cy.get('.fa.fa-search').click();
+
+
+const fn = () =>{
+    cy.get('.contentpanel').then(() => {
+        let  itemFounds = Cypress.$(`a.prdocutname[title="${search}"]`)
+        if(itemFounds.length == 0){
+           cy.get('.pagination').find('a').eq(-2).should('contain','>').click();
+        fn()
+        }else{
+            cy.get(`a.prdocutname[title="${search}"]`).click()
+        }
+    
+    })
+}
+fn()  
+}
+
+//cy.get('.disabled').eq(3).click();
+
+
+// cy.contains('>').as('nextButton')
+// const goToNextButton = () => {
+//     cy.get('')
+// }
